@@ -33,3 +33,5 @@ D. 예외 처리
 E. 추가 고려사항
   - 데이터는 메모리에 저장하거나 간단한 파일에 저장하여 프로그램 종료 후에도 유지되도록 할 수 있음.
   - 테스트 케이스를 작성하여 각 기능의 정상 작동을 확인해야 함.
+  
+Clone coding : https://github.com/dangddoong/bank-project
