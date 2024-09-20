@@ -13,9 +13,9 @@ public class User {
 	private String userName;
 	private boolean isAdmin;
 	
-	public User(String userId, String passWord, String name, boolean isAdmin) {
+	public User(String userId, String pw, String name, boolean isAdmin) {
 		this.userId = userId;
-		this.passWord = passWord;
+		this.passWord = pw;
 		this.userName = name;
 		this.isAdmin = isAdmin;
 	}

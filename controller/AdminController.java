@@ -41,7 +41,7 @@ public class AdminController {
 		if(opUser.isPresent()) {
 			throw new IllegalArgumentException(EXCEPTION_DOUBLE_ID);
 		}
-		User user = new User(id, pw, name, true);
+		User user = new User(id, pw, name, false);
 		userDB.insertUser(user);
 	}
 	

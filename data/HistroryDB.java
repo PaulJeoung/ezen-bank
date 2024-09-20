@@ -7,10 +7,11 @@
 
 package com.ezenbank.apps.data;
 
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.ezenbank.apps.service.History;
 
 public class HistroryDB {
 	private static final HistroryDB historyDB = new HistroryDB();

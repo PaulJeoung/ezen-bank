@@ -6,10 +6,12 @@
  */
 package com.ezenbank.apps.data;
 
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;import javax.security.auth.x500.X500Principal;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.ezenbank.apps.service.User;
 
 public class UserDB {
 
@@ -19,16 +21,16 @@ public class UserDB {
 		return UserDB;
 	}
 	
-	private final ArrayList<User>userList = new ArrayList<>();
+	private final ArrayList<User> userList = new ArrayList<>();
 	
 	public void insertUser(User user) {
 		userList.add(user);
 	}
 	
-	public Optioanl<User> getUserByUserId(String userId) {
+	public Optional<User> getUserByUserId(String userId) {
 		User findUser = null;
 		for (User user : userList) {
-			if (user.getUserByUserId(userId).equals(userId)) {
+			if (user.getUserId().equals(userId)) {
 				findUser = user;
 				break;
 			}
@@ -37,6 +39,6 @@ public class UserDB {
 	}
 	
 	public List<User>getAllUsers() {
-		return userList.stream().filter(x -> !x.isAdmin()).collect(Collator.toList());
+		return userList.stream().filter(x -> !x.isAdmin()).collect(Collectors.toList());
 	}
 }

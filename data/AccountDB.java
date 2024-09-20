@@ -9,6 +9,9 @@ package com.ezenbank.apps.data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.ezenbank.apps.service.Account;
 
 public class AccountDB {
 	
@@ -18,7 +21,7 @@ public class AccountDB {
 		return accountDB;
 	}
 	
-	private final ArrayList<Account>accountList = new ArrayList<>();
+	private final ArrayList<Account> accountList = new ArrayList<>();
 
 	public void insertAccount(Account account) {
 		accountList.add(account);
@@ -32,8 +35,8 @@ public class AccountDB {
 		return accountList;
 	}
 	
-	public List<Account> getAllAcountByUserId(String userId) {
-		return accountList.stream().filter(x->x.getUserId().equals(userId)).collect(Colloctors.toList());
+	public List<Account> getAllAccountByUserId(String userId) {
+		return accountList.stream().filter(x->x.getUserId().equals(userId)).collect(Collectors.toList());
 	}
 	
 	public Optional<Account> getAccountByAccountNumber(String userAccount){

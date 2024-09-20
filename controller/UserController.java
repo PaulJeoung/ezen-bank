@@ -7,6 +7,7 @@
 
 package com.ezenbank.apps.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.ezenbank.apps.data.AccountDB;
@@ -52,5 +53,42 @@ public class UserController {
 		return user;
 	}
 	
-
+	public void makeAccount(User loginUser) {
+		int countAc = accountDB.getAllAccountByUserId(loginUser.getUserId()).size();
+		Account account = new Account(loginUser.getUserId(), loginUser.getUserName(), countAc);
+		accountDB.insertAccount(account);
+		History history = new History(account.getAccountNum(), account.getAccountBalance(), TradeType.생성, 0, "조미김 은행");
+		historyDB.insertHistory(history);
+	}
+	
+	public List<Account> getMyAccount(User user) {
+		List<Account> accounts = accountDB.getAllAccountByUserId(user.getUserId());
+		
+	}
+	
+	public void depositMoney(int money, Account account) {
+		account.depositMoney(money);
+		History history = new History(account.getAccountNum(), account.getAccountBalance(), TradeType.입금, money, "조미김");
+		historyDB.insertHistory(history);
+	}
+	
+	public List<History> getAccountHistory(String accountNum) {
+		return historyDB.getAllHistoryListByAccountNum(accountNum);
+	}
+	
+	public boolean validateWithdrawAndDoController(Account account, int money) {
+		if (account.getAccountBalance() - money < 0) {
+			return false;
+		}
+		account.withdrawMoney(money);
+		History history = new History(account.getAccountNum(), account.getAccountBalance(), TradeType.출금, money, "조미김");
+		historyDB.insertHistory(history);
+		return true;
+	}
+	
+	
+	
+	
+	
+	
 }
