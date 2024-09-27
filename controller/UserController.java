@@ -18,6 +18,8 @@ import com.ezenbank.apps.service.History;
 import com.ezenbank.apps.service.TradeType;
 import com.ezenbank.apps.service.User;
 
+import com.ezenbank.apps.messages.Messages;
+
 public class UserController {
 	
 	UserDB userDB = UserDB.getInstance();
@@ -30,10 +32,10 @@ public class UserController {
 		return userController;
 	}
 	
-	public AccountDB signUp(String name, String id, String pw) {
+	public Account signUp(String name, String id, String pw) {
 		Optional<User> opUser = userDB.getUserByUserId(id);
 		if (opUser.isPresent()) {
-			throw new IllegalArgumentException(EXCEPTION_DOUBLE_ID);
+			throw new IllegalArgumentException(Messages.EXCEPTION_DOUBLE_ID);
 		}
 		User user = new User(id, pw, name, false);
 		Account account = new Account(user.getUserId(), user.getUserName(), 0);
@@ -46,9 +48,9 @@ public class UserController {
 	
 	public User login(String id, String pw) {
 		Optional<User> opUser = userDB.getUserByUserId(id);
-		User user = opUser.orElseThrow(() -> new IllegalArgumentException(EXCEPTION_NO_ID));
+		User user = opUser.orElseThrow(() -> new IllegalArgumentException(Messages.EXCEPTION_NO_ID));
 		if (!user.getPassWord().equals(pw)) {
-			throw new IllegalArgumentException(EXCEPTION_WRONG_PW);
+			throw new IllegalArgumentException(Messages.EXCEPTION_WRONG_PW);
 		}
 		return user;
 	}
@@ -61,9 +63,9 @@ public class UserController {
 		historyDB.insertHistory(history);
 	}
 	
-	public List<Account> getMyAccount(User user) {
+	public List<Account> getMyAccounts(User user) {
 		List<Account> accounts = accountDB.getAllAccountByUserId(user.getUserId());
-		
+		return accounts;
 	}
 	
 	public void depositMoney(int money, Account account) {

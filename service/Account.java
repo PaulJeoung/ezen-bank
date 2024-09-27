@@ -61,6 +61,10 @@ public class Account {
 		this.accountBalance += money;
 	}
 	
+	public void withdrawMoney(int money) {
+		this.accountBalance -= money;
+	}
+	
 	public String toString() {
 		return
 				"계좌번호 : " + accountNum +

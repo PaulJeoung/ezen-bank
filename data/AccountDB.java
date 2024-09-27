@@ -27,7 +27,7 @@ public class AccountDB {
 		accountList.add(account);
 	}
 	
-	public void deleteAccount(AccountDB account) {
+	public void deleteAccount(Account account) {
 		accountList.remove(account);
 	}
 	

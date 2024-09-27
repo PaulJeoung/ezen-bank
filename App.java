@@ -12,14 +12,17 @@ import java.util.Scanner;
 
 import com.ezenbank.apps.controller.AdminController;
 import com.ezenbank.apps.controller.UserController;
+import com.ezenbank.apps.service.Account;
 import com.ezenbank.apps.service.User;
+import com.ezenbank.apps.view.AdminUI;
+import com.ezenbank.apps.view.UserUI;
 
 import static com.ezenbank.apps.messages.Messages.*;
 
 public class App {
 	
 	static Scanner scanner = new Scanner(System.in);
-	static String messageString = "";
+	static String message = "";
 	static UserController userController = UserController.getInstance();
 	static AdminController adminController = AdminController.getInstance();
 	static UserUI userUI = new UserUI();

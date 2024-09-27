@@ -24,32 +24,34 @@ import com.ezenbank.apps.service.Account;
 import com.ezenbank.apps.service.History;
 import com.ezenbank.apps.service.User;
 
+import com.ezenbank.apps.messages.Messages;
+
 public class AdminController {
 	
 	UserDB userDB = UserDB.getInstance();
 	AccountDB accountDB = AccountDB.getInstance();
 	HistroryDB histroryDB = HistroryDB.getInstance();
 	
-	private static final AdminController adminController = new adminController();
+	private static final AdminController adminController = new AdminController();
 	
 	public static AdminController getInstance() {
 		return adminController;
 	}
 	
-	public void signUp(String name, String id, String pwString ) {
+	public void signUp(String name, String id, String pw) {
 		Optional<User> opUser = userDB.getUserByUserId(id);
 		if(opUser.isPresent()) {
-			throw new IllegalArgumentException(EXCEPTION_DOUBLE_ID);
+			throw new IllegalArgumentException(Messages.EXCEPTION_DOUBLE_ID);
 		}
-		User user = new User(id, pw, name, false);
+		User user = new User(id, pw, name, true);
 		userDB.insertUser(user);
 	}
 	
 	public User login(String id, String pw) {
-		Optional<User> opUserOptional = userDB.getUserByUserId(id);
-		User user = opUser.orElseThrow(() -> new IllegalArgumentException(EXCEPTION_NO_ID);
+		Optional<User> opUser = userDB.getUserByUserId(id);
+		User user = opUser.orElseThrow(() -> new IllegalArgumentException(Messages.EXCEPTION_NO_ID));
 		if (!user.getPassWord().equals(pw)) {
-			throw new IllegalArgumentException(EXCEPTION_WRONG_PW);
+			throw new IllegalArgumentException(Messages.EXCEPTION_WRONG_PW);
 		}
 		return user;
 	}
@@ -57,7 +59,7 @@ public class AdminController {
 	public Optional<User> confirmId(String id){
 		Optional<User> opUser = userDB.getUserByUserId(id);
 		if (opUser.isEmpty()) {
-			throw new IllegalArgumentException(EXCEPTION_NO_ID);
+			throw new IllegalArgumentException(Messages.EXCEPTION_WRONG_PW);
 		}
 		return opUser;
 	}
@@ -65,15 +67,15 @@ public class AdminController {
 	public void changeUserPw(String id, String pw) {
 		Optional<User> user = confirmId(id);
 		if (user.isEmpty()) {
-			throw new IllegalArgumentException(EXCEPTION_NO_ID);
+			throw new IllegalArgumentException(Messages.EXCEPTION_NO_ID);
 		}
 		User foundUser = user.get();
 		foundUser.changeUserPassword(pw);
 	}
 	
 	public List<Account> getUserAccounts(String id) {
-		Optional<User> userOptional = confirmId(id);
-		List<Account>accounts = accountDB.getAllAcount().stream().filter(i -> i.getUserID().equals(id)).collect(Collectors.toList());
+		Optional<User> user = confirmId(id);
+		List<Account>accounts = accountDB.getAllAcount().stream().filter(i -> i.getUserId().equals(id)).collect(Collectors.toList());
 		if (accounts.isEmpty()) {
 			throw new IllegalArgumentException("계좌가 없습니다");
 		}
